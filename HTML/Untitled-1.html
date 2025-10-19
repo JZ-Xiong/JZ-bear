@@ -1,0 +1,764 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HTML5+CSS3 初学者实验室</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        /* === 全局样式 === */
+        :root {
+            --primary: #4361ee;
+            --secondary: #3f37c9;
+            --accent: #4cc9f0;
+            --light: #f8f9fa;
+            --dark: #212529;
+            --success: #4ade80;
+            --warning: #facc15;
+            --danger: #f87171;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: var(--dark);
+            background-color: #f0f2f5;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        
+        /* === 导航栏 === */
+        .header {
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            border-radius: 0 0 12px 12px;
+            margin-bottom: 2rem;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        }
+        
+        .nav-menu {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 1.5rem;
+            padding: 1.5rem;
+            list-style: none;
+        }
+        
+        .nav-menu li a {
+            color: white;
+            text-decoration: none;
+            font-weight: 600;
+            padding: 0.5rem 1.2rem;
+            border-radius: 20px;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        
+        .nav-menu li a:hover {
+            background: rgba(255,255,255,0.2);
+            transform: translateY(-2px);
+        }
+        
+        /* === 通用卡片样式 === */
+        .learning-module, .example-card, .code-sample, .tip-box, .interactive-demo, .project-card {
+            background: white;
+            border-radius: 12px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.08);
+            padding: 2rem;
+            margin: 2rem 0;
+            border-left: 4px solid var(--accent);
+            transition: transform 0.3s ease;
+        }
+        
+        .learning-module:hover, .example-card:hover {
+            transform: translateY(-5px);
+        }
+        
+        h1, h2, h3 {
+            color: var(--secondary);
+            margin-bottom: 1rem;
+        }
+        
+        h1 {
+            font-size: 2.5rem;
+            text-align: center;
+            padding: 2rem 0;
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        
+        h2 {
+            font-size: 1.8rem;
+            border-bottom: 2px solid var(--accent);
+            padding-bottom: 0.5rem;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        h3 {
+            font-size: 1.4rem;
+            color: var(--primary);
+            margin-top: 1.5rem;
+        }
+        
+        /* === 代码样式 === */
+        pre {
+            background: #2d2d2d;
+            color: #f8f8f2;
+            padding: 1.2rem;
+            border-radius: 8px;
+            overflow-x: auto;
+            margin: 1.2rem 0;
+            font-family: 'Consolas', 'Monaco', monospace;
+            font-size: 0.95rem;
+            line-height: 1.5;
+        }
+        
+        .code-sample {
+            background: #f8f9fa;
+            border-left: 4px solid var(--primary);
+        }
+        
+        .tip-box {
+            background: #e6f7ff;
+            border-left: 4px solid var(--accent);
+            padding: 1.2rem;
+            margin: 1.5rem 0;
+        }
+        
+        .tip-box strong {
+            color: var(--secondary);
+        }
+        
+        /* === 交互演示区 === */
+        .interactive-demo {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            align-items: center;
+        }
+        
+        .demo-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 1.5rem;
+        }
+        
+        .btn-hover-effect {
+            background: var(--primary);
+            color: white;
+            border: none;
+            padding: 0.8rem 1.8rem;
+            border-radius: 30px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        .loading-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 120px;
+        }
+        
+        .loading-spinner {
+            width: 50px;
+            height: 50px;
+            border: 5px solid rgba(0,0,0,0.1);
+            border-top: 5px solid var(--primary);
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+        }
+        
+        .card-flip-container {
+            perspective: 1000px;
+            width: 200px;
+            height: 200px;
+        }
+        
+        .card-flip {
+            width: 100%;
+            height: 100%;
+            position: relative;
+            transform-style: preserve-3d;
+            transition: transform 0.8s;
+            cursor: pointer;
+        }
+        
+        .card-flip:hover {
+            transform: rotateY(180deg);
+        }
+        
+        .front, .back {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            backface-visibility: hidden;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            border-radius: 12px;
+            font-size: 1.5rem;
+            font-weight: bold;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+        }
+        
+        .front {
+            background: var(--primary);
+            color: white;
+        }
+        
+        .back {
+            background: var(--accent);
+            color: white;
+            transform: rotateY(180deg);
+        }
+        
+        /* === 代码编辑器 === */
+        .practice-area {
+            margin: 3rem 0;
+            padding: 2rem;
+            background: white;
+            border-radius: 12px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.08);
+        }
+        
+        .code-editor {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1.5rem;
+            height: 300px;
+            margin-bottom: 1.5rem;
+        }
+        
+        @media (max-width: 768px) {
+            .code-editor {
+                grid-template-columns: 1fr;
+                height: auto;
+            }
+        }
+        
+        .editor-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background: var(--secondary);
+            color: white;
+            padding: 0.5rem 1rem;
+            border-radius: 8px 8px 0 0;
+            font-weight: 500;
+        }
+        
+        textarea {
+            width: 100%;
+            height: calc(100% - 36px);
+            border: 1px solid #ddd;
+            border-radius: 0 0 8px 8px;
+            padding: 1rem;
+            font-family: 'Consolas', monospace;
+            resize: none;
+            font-size: 0.95rem;
+        }
+        
+        #run-btn {
+            background: var(--primary);
+            color: white;
+            border: none;
+            padding: 0.8rem 1.8rem;
+            border-radius: 30px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: block;
+            margin: 0 auto;
+            font-size: 1.1rem;
+        }
+        
+        #run-btn:hover {
+            background: var(--secondary);
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+        }
+        
+        .output-preview {
+            border: 1px solid #eee;
+            min-height: 200px;
+            margin-top: 2rem;
+            padding: 1rem;
+            border-radius: 8px;
+            background: white;
+            overflow: auto;
+        }
+        
+        /* === 项目展示区 === */
+        .project-gallery {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 2rem;
+        }
+        
+        .project-card {
+            border-left: 4px solid var(--success);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .project-card h3 {
+            margin-top: 0;
+        }
+        
+        .project-card::after {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 5px;
+            background: linear-gradient(90deg, var(--primary), var(--accent));
+        }
+        
+        .project-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+            margin: 1rem 0;
+        }
+        
+        .project-tag {
+            background: rgba(67, 97, 238, 0.1);
+            color: var(--primary);
+            padding: 0.3rem 0.8rem;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 500;
+        }
+        
+        /* === 动画 === */
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+        
+        .btn-hover-effect:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+        }
+        
+        /* === 页脚 === */
+        footer {
+            text-align: center;
+            padding: 2rem 0;
+            margin-top: 2rem;
+            color: #6c757d;
+            border-top: 1px solid #eee;
+        }
+        
+        /* === 响应式设计 === */
+        @media (max-width: 768px) {
+            .nav-menu {
+                flex-direction: column;
+                align-items: center;
+                gap: 0.8rem;
+            }
+            
+            h1 {
+                font-size: 2rem;
+            }
+            
+            h2 {
+                font-size: 1.5rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- 导航区 -->
+    <header class="header">
+        <nav>
+            <ul class="nav-menu">
+                <li><a href="#basics"><i class="fas fa-code"></i> 基础语法</a></li>
+                <li><a href="#layout"><i class="fas fa-layout-group"></i> 响应式布局</a></li>
+                <li><a href="#animation"><i class="fas fa-magic"></i> 动画特效</a></li>
+                <li><a href="#projects"><i class="fas fa-project-diagram"></i> 实战项目</a></li>
+                <li><a href="#practice"><i class="fas fa-play-circle"></i> 代码沙盒</a></li>
+            </ul>
+        </nav>
+    </header>
+    
+    <h1><i class="fas fa-graduation-cap"></i> HTML5 + CSS3 初学者实验室</h1>
+    
+    <!-- 内容区 -->
+    <main>
+        <!-- 基础语法模块 -->
+        <section id="basics" class="learning-module">
+            <h2><i class="fas fa-code"></i> HTML5 核心标签</h2>
+            
+            <div class="example-card">
+                <h3>语义化标签</h3>
+                <div class="code-sample">
+                    <pre>&lt;!DOCTYPE html&gt;
+&lt;html lang="zh-CN"&gt;
+&lt;head&gt;
+    &lt;meta charset="UTF-8"&gt;
+    &lt;title&gt;语义化文档结构&lt;/title&gt;
+&lt;/head&gt;
+&lt;body&gt;
+    <span style="color: #a6e22e">&lt;header&gt;</span>
+        &lt;h1&gt;网站标题&lt;/h1&gt;
+        <span style="color: #a6e22e">&lt;nav&gt;</span>
+            &lt;ul&gt;
+                &lt;li&gt;&lt;a href="#"&gt;首页&lt;/a&gt;&lt;/li&gt;
+                &lt;li&gt;&lt;a href="#"&gt;关于&lt;/a&gt;&lt;/li&gt;
+            &lt;/ul&gt;
+        <span style="color: #a6e22e">&lt;/nav&gt;</span>
+    <span style="color: #a6e22e">&lt;/header&gt;</span>
+    
+    <span style="color: #a6e22e">&lt;main&gt;</span>
+        <span style="color: #a6e22e">&lt;article&gt;</span>
+            &lt;h2&gt;文章标题&lt;/h2&gt;
+            &lt;p&gt;文章内容...&lt;/p&gt;
+        <span style="color: #a6e22e">&lt;/article&gt;</span>
+        
+        <span style="color: #a6e22e">&lt;aside&gt;</span>
+            &lt;h3&gt;相关链接&lt;/h3&gt;
+            &lt;ul&gt;
+                &lt;li&gt;&lt;a href="#"&gt;参考1&lt;/a&gt;&lt;/li&gt;
+            &lt;/ul&gt;
+        <span style="color: #a6e22e">&lt;/aside&gt;</span>
+    <span style="color: #a6e22e">&lt;/main&gt;</span>
+    
+    <span style="color: #a6e22e">&lt;footer&gt;</span>
+        &lt;p&gt;© 2023 我的网站&lt;/p&gt;
+    <span style="color: #a6e22e">&lt;/footer&gt;</span>
+&lt;/body&gt;
+&lt;/html&gt;</pre>
+                </div>
+                <div class="tip-box">
+                    <strong><i class="fas fa-lightbulb"></i> 学习重点：</strong> 语义化标签(header, nav, main, article, aside, footer)提升SEO和可访问性，使代码结构更清晰
+                </div>
+            </div>
+            
+            <div class="example-card">
+                <h3>表单增强</h3>
+                <div class="code-sample">
+                    <pre>&lt;form&gt;
+    &lt;label for="email"&gt;电子邮箱:&lt;/label&gt;
+    &lt;input type="email" id="email" required placeholder="输入有效邮箱"&gt;
+    
+    &lt;label for="date"&gt;选择日期:&lt;/label&gt;
+    &lt;input type="date" id="date"&gt;
+    
+    &lt;label for="range"&gt;音量控制:&lt;/label&gt;
+    &lt;input type="range" id="range" min="0" max="100"&gt;
+    
+    &lt;label for="color"&gt;选择颜色:&lt;/label&gt;
+    &lt;input type="color" id="color"&gt;
+    
+    &lt;button type="submit"&gt;提交&lt;/button&gt;
+&lt;/form&gt;</pre>
+                </div>
+                <div class="tip-box">
+                    <strong><i class="fas fa-lightbulb"></i> 学习重点：</strong> HTML5新增的表单类型(email, date, range, color等)提供更好的输入控制和验证
+                </div>
+            </div>
+        </section>
+        
+        <!-- 响应式布局模块 -->
+        <section id="layout" class="learning-module">
+            <h2><i class="fas fa-layout-group"></i> 响应式布局技术</h2>
+            
+            <div class="example-card">
+                <h3>Flexbox 布局</h3>
+                <div class="code-sample">
+                    <pre><span style="color: #f92672">.container</span> {
+    <span style="color: #a6e22e">display</span>: flex;
+    <span style="color: #a6e22e">flex-wrap</span>: wrap;
+    <span style="color: #a6e22e">justify-content</span>: space-between;
+    <span style="color: #a6e22e">align-items</span>: center;
+    <span style="color: #a6e22e">gap</span>: 1rem;
+}
+
+<span style="color: #f92672">.item</span> {
+    <span style="color: #a6e22e">flex</span>: 1 1 200px;
+    <span style="color: #a6e22e">background</span>: #4361ee;
+    <span style="color: #a6e22e">padding</span>: 1rem;
+    <span style="color: #a6e22e">border-radius</span>: 8px;
+    <span style="color: #a6e22e">color</span>: white;
+}</pre>
+                </div>
+                <div class="tip-box">
+                    <strong><i class="fas fa-lightbulb"></i> 学习重点：</strong> Flexbox 提供一维布局解决方案，适合组件和小规模布局
+                </div>
+            </div>
+            
+            <div class="example-card">
+                <h3>Grid 布局</h3>
+                <div class="code-sample">
+                    <pre><span style="color: #f92672">.grid-container</span> {
+    <span style="color: #a6e22e">display</span>: grid;
+    <span style="color: #a6e22e">grid-template-columns</span>: repeat(auto-fit, minmax(250px, 1fr));
+    <span style="color: #a6e22e">gap</span>: 1.5rem;
+}
+
+<span style="color: #f92672">.grid-item</span> {
+    <span style="color: #a6e22e">background</span>: #3f37c9;
+    <span style="color: #a6e22e">padding</span>: 1.5rem;
+    <span style="color: #a6e22e">border-radius</span>: 8px;
+    <span style="color: #a6e22e">color</span>: white;
+}</pre>
+                </div>
+                <div class="tip-box">
+                    <strong><i class="fas fa-lightbulb"></i> 学习重点：</strong> CSS Grid 是二维布局系统，适合整个页面的复杂布局
+                </div>
+            </div>
+            
+            <div class="example-card">
+                <h3>媒体查询</h3>
+                <div class="code-sample">
+                    <pre><span style="color: #75715e">/* 默认样式 */</span>
+<span style="color: #f92672">.responsive-box</span> {
+    <span style="color: #a6e22e">width</span>: 100%;
+    <span style="color: #a6e22e">padding</span>: 1rem;
+    <span style="color: #a6e22e">background</span>: #4cc9f0;
+}
+
+<span style="color: #75715e">/* 平板设备 */</span>
+@media (min-width: 768px) {
+    <span style="color: #f92672">.responsive-box</span> {
+        <span style="color: #a6e22e">width</span>: 80%;
+        <span style="color: #a6e22e">margin</span>: 0 auto;
+    }
+}
+
+<span style="color: #75715e">/* 桌面设备 */</span>
+@media (min-width: 1024px) {
+    <span style="color: #f92672">.responsive-box</span> {
+        <span style="color: #a6e22e">width</span>: 60%;
+    }
+}</pre>
+                </div>
+                <div class="tip-box">
+                    <strong><i class="fas fa-lightbulb"></i> 学习重点：</strong> 使用媒体查询根据屏幕尺寸应用不同样式，实现响应式设计
+                </div>
+            </div>
+        </section>
+        
+        <!-- 动画演示区 -->
+        <section id="animation" class="interactive-demo">
+            <h2><i class="fas fa-magic"></i> CSS3 动画与特效</h2>
+            
+            <div class="demo-container">
+                <h3>悬停效果</h3>
+                <button class="btn-hover-effect">悬停查看效果</button>
+                <pre>transition: transform 0.3s, box-shadow 0.3s;
+transform: translateY(-5px);
+box-shadow: 0 10px 20px rgba(0,0,0,0.1);</pre>
+            </div>
+            
+            <div class="demo-container">
+                <h3>加载动画</h3>
+                <div class="loading-container">
+                    <div class="loading-spinner"></div>
+                </div>
+                <pre>@keyframes spin {
+  to { transform: rotate(360deg); }
+}
+
+.loading-spinner {
+  border: 5px solid rgba(0,0,0,0.1);
+  border-top: 5px solid #4361ee;
+  animation: spin 1s linear infinite;
+}</pre>
+            </div>
+            
+            <div class="demo-container">
+                <h3>3D卡片翻转</h3>
+                <div class="card-flip-container">
+                    <div class="card-flip">
+                        <div class="front">正面</div>
+                        <div class="back">背面</div>
+                    </div>
+                </div>
+                <pre>.card-flip {
+  perspective: 1000px;
+  transform-style: preserve-3d;
+  transition: transform 0.8s;
+}
+
+.front, .back {
+  backface-visibility: hidden;
+}
+
+.back {
+  transform: rotateY(180deg);
+}</pre>
+            </div>
+        </section>
+        
+        <!-- 项目展示区 -->
+        <section id="projects" class="project-gallery">
+            <h2><i class="fas fa-project-diagram"></i> 实战项目</h2>
+            
+            <div class="project-card">
+                <h3>个人博客页面</h3>
+                <div class="project-tags">
+                    <span class="project-tag">语义化HTML</span>
+                    <span class="project-tag">Flexbox</span>
+                    <span class="project-tag">响应式</span>
+                </div>
+                <p>创建一个包含文章列表、分类导航和作者信息的个人博客页面，使用语义化标签提升SEO。</p>
+                <div class="tip-box">
+                    <strong><i class="fas fa-check-circle"></i> 学习要点：</strong> HTML5结构、CSS布局、响应式设计
+                </div>
+            </div>
+            
+            <div class="project-card">
+                <h3>产品展示卡片</h3>
+                <div class="project-tags">
+                    <span class="project-tag">CSS Grid</span>
+                    <span class="project-tag">悬停效果</span>
+                    <span class="project-tag">过渡动画</span>
+                </div>
+                <p>设计一组带有悬停动画效果的产品卡片，使用CSS Grid实现自适应布局。</p>
+                <div class="tip-box">
+                    <strong><i class="fas fa-check-circle"></i> 学习要点：</strong> CSS转换、过渡效果、Grid布局
+                </div>
+            </div>
+            
+            <div class="project-card">
+                <h3>交互式相册</h3>
+                <div class="project-tags">
+                    <span class="project-tag">CSS动画</span>
+                    <span class="project-tag">媒体查询</span>
+                    <span class="project-tag">滤镜效果</span>
+                </div>
+                <p>创建带有过渡动画和滤镜效果的照片画廊，支持不同屏幕尺寸的响应式布局。</p>
+                <div class="tip-box">
+                    <strong><i class="fas fa-check-circle"></i> 学习要点：</strong> CSS动画、响应式图片、交互设计
+                </div>
+            </div>
+        </section>
+    </main>
+    
+    <!-- 练习区 -->
+    <div id="practice" class="practice-area">
+        <h2><i class="fas fa-play-circle"></i> 代码沙盒</h2>
+        <p>在下方编辑器中编写HTML和CSS代码，点击"运行代码"查看结果：</p>
+        
+        <div class="code-editor">
+            <div class="editor-section">
+                <div class="editor-header">
+                    <span>HTML 编辑器</span>
+                    <span><i class="fab fa-html5"></i></span>
+                </div>
+                <textarea id="html-editor" placeholder="输入HTML代码...">&lt;div class="demo-box"&gt;
+    &lt;h3&gt;欢迎使用代码沙盒&lt;/h3&gt;
+    &lt;p&gt;尝试修改这些内容&lt;/p&gt;
+    &lt;button&gt;点击我&lt;/button&gt;
+&lt;/div&gt;</textarea>
+            </div>
+            
+            <div class="editor-section">
+                <div class="editor-header">
+                    <span>CSS 编辑器</span>
+                    <span><i class="fab fa-css3-alt"></i></span>
+                </div>
+                <textarea id="css-editor" placeholder="输入CSS代码...">.demo-box {
+    background: linear-gradient(135deg, #4361ee, #4cc9f0);
+    color: white;
+    padding: 2rem;
+    border-radius: 12px;
+    text-align: center;
+    max-width: 500px;
+    margin: 0 auto;
+}
+
+.demo-box h3 {
+    margin-bottom: 1rem;
+}
+
+.demo-box button {
+    background: white;
+    color: #4361ee;
+    border: none;
+    padding: 0.8rem 1.5rem;
+    border-radius: 30px;
+    font-weight: bold;
+    cursor: pointer;
+    margin-top: 1rem;
+    transition: all 0.3s;
+}
+
+.demo-box button:hover {
+    transform: scale(1.05);
+    box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+}</textarea>
+            </div>
+        </div>
+        
+        <button id="run-btn"><i class="fas fa-play"></i> 运行代码</button>
+        
+        <h3 style="margin-top: 2rem;">预览结果:</h3>
+        <div class="output-preview" id="output-preview"></div>
+    </div>
+    
+    <footer>
+        <p>HTML5 + CSS3 初学者实验室 &copy; 2023 | 实践是最好的学习方式</p>
+    </footer>
+    
+    <script>
+        // 运行代码功能
+        document.getElementById('run-btn').addEventListener('click', function() {
+            const htmlCode = document.getElementById('html-editor').value;
+            const cssCode = document.getElementById('css-editor').value;
+            const previewFrame = document.getElementById('output-preview');
+            
+            // 创建样式和内容
+            const style = document.createElement('style');
+            style.textContent = cssCode;
+            
+            const content = document.createElement('div');
+            content.innerHTML = htmlCode;
+            
+            // 清空预览区并添加新内容
+            previewFrame.innerHTML = '';
+            previewFrame.appendChild(style);
+            previewFrame.appendChild(content);
+        });
+        
+        // 初始化运行一次
+        document.getElementById('run-btn').click();
+        
+        // 平滑滚动
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function(e) {
+                e.preventDefault();
+                const targetId = this.getAttribute('href');
+                const targetElement = document.querySelector(targetId);
+                
+                if (targetElement) {
+                    window.scrollTo({
+                        top: targetElement.offsetTop - 80,
+                        behavior: 'smooth'
+                    });
+                }
+            });
+        });
+    </script>
+</body>
+</html>

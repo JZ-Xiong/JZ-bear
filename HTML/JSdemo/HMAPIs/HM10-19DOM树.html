@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DOM树</title>
+    <style>
+        #root {
+            border: 1px solid #000;
+            padding: 10px;
+            margin: 10px;
+        }
+        #root div {
+            margin: 5px;
+            padding: 5px;
+            border: 1px dashed #666;
+        }
+    </style>
+</head>
+<body>
+    <h1>DOM树示例</h1>
+    <div id="root"></div>
+    <ul>
+        <li>测试1</li>
+        <li>测试2</li>
+        <li>测试3</li>
+    </ul>
+    <script>
+        // DOM树示例
+        const root = document.getElementById("root");   //获取DOM元素
+        const child1 = document.createElement("div");   //创建子元素1
+        const child2 = document.createElement("div");   //创建子元素2
+        child1.textContent = "子元素1"; //设置子元素1内容
+        child2.textContent = "子元素2"; //设置子元素2内容
+        root.appendChild(child1);   //将子元素1添加到root
+        root.appendChild(child2);   //将子元素2添加到root
+        console.log(root);          //在控制台输出root元素
+
+        const li = document.querySelector("ul li:first-child");
+        console.log(li);
+
+        //DOM树是由节点（Node）组成的层级结构，每个节点代表HTML文档中的一个元素、属性或文本内容。
+        //通过JavaScript可以动态操作DOM树，添加、删除或修改节点，从而改变网页内容和结构。
+    </script>
+</body>
+</html>

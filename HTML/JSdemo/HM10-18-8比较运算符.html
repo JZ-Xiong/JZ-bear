@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>比较运算符</title>
+</head>
+<body>
+    <script>
+        // 基本比较
+        let a = 5;
+        let b = 10;
+        console.log(a < b); // true
+        console.log(a > b); // false
+        console.log(a <= b); // true
+        console.log(a >= b); // false
+        console.log(a == b); // false
+        console.log(a != b); // true
+
+        // 类型比较
+        let c = "5";
+        console.log(a == c); // true (值相等)
+        console.log(a === c); // false (值和类型都不相等)
+        console.log(a != c); // false (值相等)
+        console.log(a !== c); // true (值相等但类型不相等)
+
+        //特殊值比较
+        console.log(null == undefined); // true
+        console.log(null === undefined); // false
+        console.log(0 == false); // true
+        console.log(0 === false); // false
+
+        //对象引用比较
+        let obj1 = { name: "Alice" };
+        let obj2 = { name: "Alice" };
+        console.log(obj1 == obj2); // false (不同引用)
+        console.log(obj1 === obj2); // false (不同引用)
+
+        //对象引用比较
+        let obj3 = obj1;
+        console.log(obj1 == obj3); // true (相同引用)
+        console.log(obj1 === obj3); // true (相同引用)
+
+        //NaN比较，NaN不等于任何值，包括他自己
+        let nan1 = NaN;
+        let nan2 = NaN; 
+        console.log(nan1 == nan2); // false
+        console.log(nan1 === nan2); // false
+        console.log(Number.isNaN(nan1)); // true
+        console.log(Number.isNaN(nan2)); // true
+
+        //Infinity比较
+        let inf1 = Infinity;
+        let inf2 = Infinity;
+        console.log(inf1 == inf2); // true
+        console.log(inf1 === inf2); // true
+
+        //ASCII字符比较
+        let chara = 'A';
+        let charb = 'B';
+        console.log(chara < charb); // true
+        console.log(chara > charb); // false
+        console.log(chara <= charb); // true
+        console.log(chara >= charb); // false
+
+    </script>
+</body>
+</html>

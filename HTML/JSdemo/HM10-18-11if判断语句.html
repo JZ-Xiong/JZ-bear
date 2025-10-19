@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>if判断语句</title>
+</head>
+<body>
+    <script>
+        // if判断语句示例
+        let age = 18;
+        if (age >= 18) {
+            console.log("你可以投票。");
+        } else {
+            console.log("你不能投票。");
+        }
+
+        // if-else if-else示例
+        let score = 85;
+        if (score >= 90) {
+            console.log("成绩优秀");
+        } else if (score >= 80) {
+            console.log("成绩良好");
+        } else {
+            console.log("成绩待提高");
+        }
+
+        // 嵌套if示例
+        let num = 10;
+        if (num > 0) {
+            console.log("正数");
+            if (num % 2 === 0) {
+                console.log("偶数");
+            } else {
+                console.log("奇数");
+            }
+        } else {
+            console.log("非正数");
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,494 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HTML+CSS 代码速查手册</title>
+    <style>
+        /* === CSS变量定义 === */
+        :root {
+            --primary: #4361ee;    /* 主色调 */
+            --secondary: #3f37c9;  /* 辅助色 */
+            --light: #f8f9fa;      /* 浅背景色 */
+            --dark: #212529;       /* 深文本色 */
+            --success: #4caf50;    /* 成功色 */
+            --warning: #ff9800;    /* 警告色 */
+            --danger: #f44336;     /* 危险色 */
+            --gray: #6c757d;       /* 灰色 */
+            --border: #dee2e6;     /* 边框色 */
+        }
+
+        /* === 全局样式重置 === */
+        * {
+            box-sizing: border-box; /* 盒模型计算包含边框和内边距 */
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: 'Segoe UI', system-ui, sans-serif;
+            line-height: 1.6;      /* 行高设置 */
+            background: linear-gradient(135deg, #f5f7fa 0%, #e4edf5 100%);
+            color: var(--dark);
+            padding: 20px;
+            max-width: 1200px;     /* 最大宽度限制 */
+            margin: 0 auto;        /* 居中显示 */
+        }
+
+        /* === 头部样式 === */
+        header {
+            text-align: center;
+            padding: 2rem 0;
+            margin-bottom: 2rem;
+            background: white;
+            border-radius: 12px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.05); /* 柔和阴影效果 */
+        }
+
+        h1 {
+            color: var(--primary);
+            font-size: 2.5rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .subtitle {
+            color: var(--gray);
+            font-size: 1.2rem;
+        }
+
+        /* === 主容器布局 === */
+        .container {
+            display: grid;
+            grid-template-columns: 300px 1fr; /* 两列布局 */
+            gap: 25px; /* 列间距 */
+        }
+
+        /* === 导航样式 === */
+        nav {
+            background: white;
+            border-radius: 12px;
+            padding: 1.5rem;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+            height: fit-content;
+            position: sticky; /* 滚动时固定位置 */
+            top: 20px; /* 距离顶部距离 */
+        }
+
+        .nav-group {
+            margin-bottom: 1.5rem;
+        }
+
+        .nav-title {
+            font-weight: 600;
+            color: var(--secondary);
+            padding: 8px 0;
+            border-bottom: 2px solid #e9ecef; /* 标题下划线 */
+            margin-bottom: 10px;
+        }
+
+        .nav-link {
+            display: block;
+            padding: 10px 15px;
+            text-decoration: none;
+            color: var(--dark);
+            border-radius: 6px;
+            transition: all 0.3s ease; /* 平滑过渡效果 */
+            margin: 5px 0;
+        }
+
+        .nav-link:hover {
+            background: #e9ecef; /* 悬停背景色 */
+            transform: translateX(5px); /* 悬停位移效果 */
+        }
+
+        .nav-link.active {
+            background: #4361ee15; /* 半透明主色调 */
+            color: var(--primary);
+            font-weight: 500;
+        }
+
+        /* === 内容区域 === */
+        .content {
+            background: white;
+            border-radius: 12px;
+            padding: 2rem;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+            min-height: 80vh; /* 最小高度保证布局 */
+        }
+
+        .section {
+            display: none; /* 默认隐藏所有部分 */
+            animation: fadeIn 0.4s ease; /* 显示动画 */
+        }
+
+        .section.active {
+            display: block; /* 激活时显示 */
+        }
+
+        h2 {
+            color: var(--primary);
+            margin-bottom: 1.5rem;
+            padding-bottom: 0.5rem;
+            border-bottom: 2px solid #e9ecef; /* 标题下划线 */
+        }
+
+        h3 {
+            color: var(--secondary);
+            margin: 1.5rem 0 1rem;
+        }
+
+        /* === 代码卡片样式 === */
+        .code-card {
+            background: #f8f9fa;
+            border-left: 4px solid var(--primary); /* 左侧高亮标识 */
+            border-radius: 0 8px 8px 0; /* 右侧圆角 */
+            padding: 1.5rem;
+            margin: 1.5rem 0;
+            overflow-x: auto; /* 代码过长时显示滚动条 */
+        }
+
+        pre {
+            font-family: 'Consolas', monospace;
+            font-size: 15px;
+            line-height: 1.4;
+            tab-size: 4; /* 制表符宽度 */
+        }
+
+        /* === 示例展示区 === */
+        .example {
+            background: #fff;
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            padding: 1.5rem;
+            margin: 1.5rem 0;
+        }
+
+        .example-title {
+            font-weight: 600;
+            margin-bottom: 1rem;
+            color: var(--secondary);
+        }
+
+        .example-preview {
+            padding: 1rem;
+            border: 1px dashed var(--border);
+            border-radius: 6px;
+            margin-top: 1rem;
+            background: var(--light);
+        }
+
+        /* === 响应式设计 === */
+        @media (max-width: 768px) {
+            .container {
+                grid-template-columns: 1fr; /* 移动端单列布局 */
+            }
+            nav {
+                position: static; /* 取消固定定位 */
+            }
+        }
+
+        /* === 动画定义 === */
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* === 实用类 === */
+        .color-box {
+            display: inline-block;
+            width: 20px;
+            height: 20px;
+            border-radius: 4px;
+            vertical-align: middle;
+            margin-right: 8px;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>HTML+CSS 代码速查手册</h1>
+        <p class="subtitle">前端开发必备参考指南 | 简洁语法 + 实用示例</p>
+    </header>
+    
+    <div class="container">
+        <nav>
+            <div class="nav-group">
+                <div class="nav-title">HTML 基础</div>
+                <a href="#structure" class="nav-link active">页面结构</a>
+                <a href="#text" class="nav-link">文本元素</a>
+                <a href="#lists" class="nav-link">列表</a>
+                <a href="#tables" class="nav-link">表格</a>
+                <a href="#forms" class="nav-link">表单控件</a>
+            </div>
+            
+            <div class="nav-group">
+                <div class="nav-title">CSS 核心</div>
+                <a href="#selectors" class="nav-link">选择器</a>
+                <a href="#box-model" class="nav-link">盒模型</a>
+                <a href="#layout" class="nav-link">布局技术</a>
+                <a href="#responsive" class="nav-link">响应式设计</a>
+                <a href="#animations" class="nav-link">动画效果</a>
+            </div>
+            
+            <div class="nav-group">
+                <div class="nav-title">实用组件</div>
+                <a href="#buttons" class="nav-link">按钮样式</a>
+                <a href="#cards" class="nav-link">卡片组件</a>
+                <a href="#navbars" class="nav-link">导航菜单</a>
+                <a href="#grids" class="nav-link">网格系统</a>
+            </div>
+        </nav>
+        
+        <main class="content">
+            <!-- HTML 结构部分 -->
+            <section id="structure" class="section active">
+                <h2>HTML 基础结构</h2>
+                <p>标准HTML文档骨架：</p>
+                <div class="code-card">
+                    <pre><code>&lt;!DOCTYPE html&gt;                     <span class="comment">&lt;!-- 文档类型声明 --&gt;</span>
+&lt;html lang="zh-CN"&gt;              <span class="comment">&lt;!-- 根元素，定义语言 --&gt;</span>
+&lt;head&gt;
+    &lt;meta charset="UTF-8"&gt;        <span class="comment">&lt;!-- 字符编码声明 --&gt;</span>
+    &lt;meta name="viewport" content="width=device-width, initial-scale=1.0"&gt; <span class="comment">&lt;!-- 移动端适配 --&gt;</span>
+    &lt;title&gt;页面标题&lt;/title&gt;        <span class="comment">&lt;!-- 浏览器标签标题 --&gt;</span>
+    &lt;link rel="stylesheet" href="styles.css"&gt; <span class="comment">&lt;!-- 外部CSS链接 --&gt;</span>
+&lt;/head&gt;
+&lt;body&gt;
+    <span class="comment">&lt;!-- 页面内容区域 --&gt;</span>
+    &lt;script src="script.js"&gt;&lt;/script&gt; <span class="comment">&lt;!-- 外部JS脚本 --&gt;</span>
+&lt;/body&gt;
+&lt;/html&gt;</code></pre>
+                </div>
+                
+                <div class="example">
+                    <div class="example-title">语义化标签示例</div>
+                    <div class="code-card">
+                        <pre><code>&lt;header&gt;网站头部&lt;/header&gt;       <span class="comment">&lt;!-- 页面头部 --&gt;</span>
+&lt;nav&gt;导航菜单&lt;/nav&gt;           <span class="comment">&lt;!-- 导航区域 --&gt;</span>
+&lt;main&gt;                       <span class="comment">&lt;!-- 主要内容容器 --&gt;</span>
+    &lt;article&gt;                <span class="comment">&lt;!-- 独立文章内容 --&gt;</span>
+        &lt;h1&gt;文章标题&lt;/h1&gt;
+        &lt;section&gt;            <span class="comment">&lt;!-- 内容区块 --&gt;</span>
+            &lt;h2&gt;章节标题&lt;/h2&gt;
+            &lt;p&gt;段落内容...&lt;/p&gt;
+        &lt;/section&gt;
+    &lt;/article&gt;
+    &lt;aside&gt;侧边栏&lt;/aside&gt;     <span class="comment">&lt;!-- 相关内容/侧边栏 --&gt;</span>
+&lt;/main&gt;
+&lt;footer&gt;网站底部&lt;/footer&gt;     <span class="comment">&lt;!-- 页脚内容 --&gt;</span></code></pre>
+                    </div>
+                </div>
+            </section>
+            
+            <!-- HTML 文本元素 -->
+            <section id="text" class="section">
+                <h2>HTML 文本元素</h2>
+                <p>常用文本格式化标签：</p>
+                <div class="code-card">
+                    <pre><code>&lt;h1&gt;一级标题&lt;/h1&gt;     <span class="comment">&lt;!-- 标题标签，h1-h6 --&gt;</span>
+&lt;p&gt;普通段落文本&lt;/p&gt;   <span class="comment">&lt;!-- 段落标签 --&gt;</span>
+&lt;strong&gt;加粗文本&lt;/strong&gt; <span class="comment">&lt;!-- 语义化加粗 --&gt;</span>
+&lt;em&gt;强调文本&lt;/em&gt;     <span class="comment">&lt;!-- 语义化斜体 --&gt;</span>
+&lt;span&gt;行内容器&lt;/span&gt;     <span class="comment">&lt;!-- 行内文本容器 --&gt;</span>
+&lt;br&gt;                <span class="comment">&lt;!-- 换行符 --&gt;</span>
+&lt;hr&gt;                <span class="comment">&lt;!-- 水平分隔线 --&gt;</span>
+&lt;blockquote&gt;引用文本&lt;/blockquote&gt; <span class="comment">&lt;!-- 块级引用 --&gt;</span>
+&lt;code&gt;代码片段&lt;/code&gt;   <span class="comment">&lt;!-- 行内代码 --&gt;</span></code></pre>
+                </div>
+            </section>
+            
+            <!-- CSS 布局部分 -->
+            <section id="layout" class="section">
+                <h2>CSS 布局技术</h2>
+                <p>Flexbox 基础布局：</p>
+                <div class="code-card">
+                    <pre><code>.container {
+    display: flex;                   <span class="comment">/* 启用Flex布局 */</span>
+    flex-direction: row;             <span class="comment">/* 主轴方向：row | row-reverse | column | column-reverse */</span>
+    flex-wrap: wrap;                 <span class="comment">/* 换行方式：nowrap | wrap | wrap-reverse */</span>
+    justify-content: center;         <span class="comment">/* 主轴对齐：flex-start | flex-end | center | space-between | space-around */</span>
+    align-items: center;             <span class="comment">/* 交叉轴对齐：stretch | flex-start | flex-end | center | baseline */</span>
+}</code></pre>
+                </div>
+                
+                <p>Grid 网格布局：</p>
+                <div class="code-card">
+                    <pre><code>.grid-container {
+    display: grid; 
+    grid-template-columns: repeat(3, 1fr); <span class="comment">/* 定义3列等宽网格 */</span>
+    grid-template-rows: 100px auto;        <span class="comment">/* 定义两行高度 */</span>
+    gap: 20px;                            <span class="comment">/* 网格间隙 */</span>
+}
+.item-1 {
+    grid-column: 1 / span 2; <span class="comment">/* 跨越2列 */</span>
+    grid-row: 1;             <span class="comment">/* 位于第一行 */</span>
+}</code></pre>
+                </div>
+            </section>
+            
+            <!-- 响应式设计部分 -->
+            <section id="responsive" class="section">
+                <h2>响应式设计</h2>
+                <p>媒体查询基本语法：</p>
+                <div class="code-card">
+                    <pre><code><span class="comment">/* 移动设备优先 (默认样式) */</span>
+.container { padding: 10px; }
+
+<span class="comment">/* 平板设备 (最小宽度768px) */</span>
+@media (min-width: 768px) {
+    .container { padding: 20px; }
+}
+
+<span class="comment">/* 桌面设备 (最小宽度1024px) */</span>
+@media (min-width: 1024px) {
+    .container {
+        padding: 30px;
+        max-width: 1200px;
+        margin: 0 auto; <span class="comment">/* 居中显示 */</span>
+    }
+}</code></pre>
+                </div>
+                
+                <p>响应式图片：</p>
+                <div class="code-card">
+                    <pre><code>&lt;img src="small.jpg" 
+     srcset="medium.jpg 1000w, large.jpg 2000w" <span class="comment">&lt;!-- 不同尺寸源 --&gt;</span>
+     sizes="(max-width: 768px) 100vw, 50vw"     <span class="comment">&lt;!-- 视口尺寸条件 --&gt;</span>
+     alt="响应式图片示例"&gt;</code></pre>
+                </div>
+            </section>
+            
+            <!-- 按钮样式 -->
+            <section id="buttons" class="section">
+                <h2>按钮样式</h2>
+                <p>基础按钮样式：</p>
+                <div class="code-card">
+                    <pre><code>.btn {
+    display: inline-block;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 4px;
+    background: var(--primary);
+    color: white;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+<span class="comment">/* 悬停效果 */</span>
+.btn:hover {
+    background: var(--secondary);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+}</code></pre>
+                </div>
+                
+                <div class="example">
+                    <div class="example-title">按钮样式示例</div>
+                    <div class="example-preview">
+                        <button style="display:inline-block;padding:10px 20px;border:none;border-radius:4px;background:#4361ee;color:white;margin-right:10px;">主按钮</button>
+                        <button style="display:inline-block;padding:10px 20px;border:none;border-radius:4px;background:#4caf50;color:white;margin-right:10px;">成功按钮</button>
+                        <button style="display:inline-block;padding:10px 20px;border:none;border-radius:4px;background:#f44336;color:white;">危险按钮</button>
+                    </div>
+                </div>
+            </section>
+            
+            <!-- 卡片组件 -->
+            <section id="cards" class="section">
+                <h2>卡片组件</h2>
+                <p>现代化卡片设计：</p>
+                <div class="code-card">
+                    <pre><code>.card {
+    background: white;
+    border-radius: 12px;
+    overflow: hidden;           <span class="comment">/* 隐藏溢出内容 */</span>
+    box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+    transition: transform 0.3s ease;
+}
+
+.card:hover {
+    transform: translateY(-5px); <span class="comment">/* 悬停上浮效果 */</span>
+    box-shadow: 0 8px 16px rgba(0,0,0,0.15);
+}
+
+.card-img {
+    width: 100%;
+    height: 200px;
+    object-fit: cover;          <span class="comment">/* 图片填充模式 */</span>
+}
+
+.card-body {
+    padding: 1.5rem;
+}</code></pre>
+                </div>
+            </section>
+            
+            <!-- 动画效果 -->
+            <section id="animations" class="section">
+                <h2>CSS 动画</h2>
+                <p>关键帧动画示例：</p>
+                <div class="code-card">
+                    <pre><code><span class="comment">/* 定义动画 */</span>
+@keyframes slideIn {
+    0% {
+        opacity: 0;
+        transform: translateX(-100%);
+    }
+    100% {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+<span class="comment">/* 应用动画 */</span>
+.animated-element {
+    animation: slideIn 0.8s ease-out forwards;
+}</code></pre>
+                </div>
+                
+                <p>过渡动画：</p>
+                <div class="code-card">
+                    <pre><code>.box {
+    width: 100px;
+    height: 100px;
+    background: var(--primary);
+    transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275); <span class="comment">/* 贝塞尔曲线 */</span>
+}
+
+.box:hover {
+    transform: rotate(15deg) scale(1.1);
+    background: var(--secondary);
+}</code></pre>
+                </div>
+            </section>
+        </main>
+    </div>
+    
+    <script>
+        // === 导航切换功能 ===
+        document.querySelectorAll('.nav-link').forEach(link => {
+            link.addEventListener('click', function(e) {
+                e.preventDefault();
+                
+                // 移除所有活动状态
+                document.querySelectorAll('.nav-link').forEach(el => {
+                    el.classList.remove('active');
+                });
+                
+                // 添加当前活动状态
+                this.classList.add('active');
+                
+                // 显示对应内容区域
+                const targetId = this.getAttribute('href').substring(1);
+                document.querySelectorAll('.section').forEach(section => {
+                    section.classList.remove('active');
+                });
+                document.getElementById(targetId).classList.add('active');
+                
+                // 滚动到顶部（可选）
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+            });
+        });
+    </script>
+</body>
+</html>

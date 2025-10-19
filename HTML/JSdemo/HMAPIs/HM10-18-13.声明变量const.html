@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>const变量</title>
+</head>
+<body>
+    <script>
+        // const变量示例
+        const PI = 3.14;
+        console.log(PI); // 3.14
+
+        // 尝试修改const变量（会报错）
+        // PI = 3.14159; // Uncaught TypeError: Assignment to constant variable.
+
+        // const数组示例
+        const colors = ["red", "green", "blue"];
+        console.log(colors); // ["red", "green", "blue"]
+        colors.push("yellow"); // 允许修改数组内容
+        console.log(colors); // ["red", "green", "blue", "yellow"]
+
+        // const对象示例
+        const person = {
+            name: "Alice",
+            age: 30
+        };
+        console.log(person); // { name: "Alice", age: 30 }
+        person.age = 31; // 允许修改对象属性
+        console.log(person); // { name: "Alice", age: 31 }
+
+        // const变量必须在声明时初始化，原理如下：
+        // const x; // Uncaught SyntaxError: Missing initializer in const declaration
+        
+    </script>
+</body>
+</html>
