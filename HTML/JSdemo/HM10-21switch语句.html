@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>switch语句示例</title>
+</head>
+<body>
+    <script>
+        // switch语句示例
+        let fruit = "apple";    // 可以修改为 "banana" 或其他值进行测试
+        switch (fruit) {    // 根据fruit的值进行分支选择
+            case "banana":  // 如果fruit是"banana"
+                console.log("This is a banana.");// 输出香蕉信息
+                break;  // 结束当前case
+            case "apple":   // 如果fruit是"apple"
+                console.log("This is an apple.");// 输出苹果信息
+                break;  // 结束当前case
+            default:    // 如果fruit不匹配任何case
+                console.log("Unknown fruit.");  // 输出未知水果信息
+        }
+
+        // switch语句与数字结合使用
+        let day = 3;  // 可以修改为1-7进行测试
+        switch (day) {    // 根据day的值进行分支选择
+            case 1:
+                console.log("Monday");
+                break;
+            case 2:
+                console.log("Tuesday");
+                break;
+            case 3:
+                console.log("Wednesday");
+                break;
+            case 4:
+                console.log("Thursday");
+                break;
+            case 5:
+                console.log("Friday");
+                break;
+            case 6:
+                console.log("Saturday");
+                break;
+            case 7:
+                console.log("Sunday");
+                break;
+            default:
+                console.log("Invalid day.");
+        }
+
+        // switch语句与表达式结合使用
+        let score = 85; // 可以修改为不同分数进行测试
+        switch (true) {   // 使用true作为表达式，结合条件判断
+            case (score >= 90):
+                console.log("Grade: A");
+                break;
+            case (score >= 80):
+                console.log("Grade: B");
+                break;
+            case (score >= 70):
+                console.log("Grade: C");
+                break;
+            case (score >= 60):
+                console.log("Grade: D");
+                break;
+            default:
+                console.log("Grade: F");
+        }
+
+        // switch简易计算器
+        let num1 = +prompt("Enter first number:"); // 获取第一个数字
+        let num2 = +prompt("Enter second number:"); // 获取第二个数字
+        let operator = prompt("Enter operator (+, -, *, /):"); // 获取操作符
+
+        switch (operator) {
+            case "+":
+                console.log("Result: " + (num1 + num2));
+                break;
+            case "-":
+                console.log("Result: " + (num1 - num2));
+                break;
+            case "*":
+                console.log("Result: " + (num1 * num2));
+                break;
+            case "/":
+                console.log("Result: " + (num1 / num2));
+                break;
+            default:
+                console.log("Invalid operator.");
+        }
+    </script>
+</body>
+</html>
