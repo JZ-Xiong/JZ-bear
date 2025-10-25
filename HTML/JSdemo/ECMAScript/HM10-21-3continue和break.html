@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>continue和break</title>
+</head>
+<body>
+    <h1>continue和break</h1>
+    <script>
+        // 使用continue跳过偶数
+        for (let i = 0; i < 10; i++) {
+            if (i % 2 === 0) {
+                continue; // 跳过偶数
+            }
+            console.log("奇数: " + i);
+        }
+
+        // 使用break在遇到5时退出循环
+        for (let j = 0; j < 10; j++) {
+            if (j === 5) {
+                break; // 遇到5时退出循环
+            }
+            console.log("数字: " + j);
+        }
+    </script>
+</body>
+</html>

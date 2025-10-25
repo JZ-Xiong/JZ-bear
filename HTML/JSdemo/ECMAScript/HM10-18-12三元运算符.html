@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>三元运算符</title>
+</head>
+<body>
+    <script>
+        // 三元运算符示例
+        // 条件 ? 表达式1 : 表达式2
+        let age = 18;
+        let canVote = (age >= 18) ? "Yes" : "No";
+        console.log(canVote); // Yes
+
+        // 嵌套三元运算符示例
+        let score = 85;
+        let grade = (score >= 90) ? "优秀" : (score >= 80) ? "良好" : "待提高";
+        console.log(grade); // 良好
+
+        // 使用三元运算符进行赋值
+        let isAdult = (age >= 18) ? true : false;
+        console.log(isAdult); // true
+
+        // 三元运算符与函数结合使用
+        function checkEvenOdd(num) {
+            return (num % 2 === 0) ? "Even" : "Odd";
+        }
+        console.log(checkEvenOdd(7)); // Odd
+        console.log(checkEvenOdd(10)); // Even
+
+        //数字补0示例
+        let num = 5;
+        let paddedNum = (num < 10) ? '0' + num : num;
+        console.log(paddedNum); // 05
+        
+    </script>
+</body>
+</html>

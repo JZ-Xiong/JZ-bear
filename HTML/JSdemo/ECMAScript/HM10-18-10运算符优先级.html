@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>运算符优先级</title>
+</head>
+<body>
+    <script>
+        // 运算符优先级示例
+        let a = 5;
+        let b = 10;
+        let c = 15;
+
+        // 优先级：() > * > / > + > -
+        let result = a + b * c / 5 - 2;
+        console.log(result); // 30
+
+        // 使用括号改变优先级
+        let result2 = (a + b) * (c / 5 - 2);
+        console.log(result2); // 0
+
+        // 逻辑运算符优先级
+        let x = true;
+        let y = false;
+        let z = true;
+        let logicResult = x || y && z; // && 优先级高于 ||
+        console.log(logicResult); // true
+        let logicResult2 = (x || y) && z;
+        console.log(logicResult2); // true
+
+        // 赋值运算符优先级
+        let m, n;
+        m = n = 20; // 赋值从右到左
+        console.log(m); // 20
+        console.log(n); // 20
+
+        // 三元运算符优先级
+        let age = 18;
+        let canVote = (age >= 18) ? "Yes" : "No";
+        console.log(canVote); // Yes
+
+        // 字符串连接运算符优先级
+        let greeting = "Hello, " + "World!" + " How are you?";
+        console.log(greeting); // Hello, World! How are you?
+
+        // 自增和自减运算符优先级
+        let num = 5;
+        let postIncrement = num++; // 先赋值后自增
+        console.log(num); // 6
+        console.log(postIncrement); // 5
+        let preIncrement = ++num; // 先自增后赋值
+        console.log(num); // 7
+        console.log(preIncrement); // 7
+
+        //全体运算符优先级总结
+        console.log("运算符优先级总结：");
+        console.log("1. 括号 ()"); 
+        console.log("2. 乘法 * 和 除法 /");
+        console.log("3. 加法 + 和 减法 -");
+        console.log("4. 逻辑与 &&");
+        console.log("5. 逻辑或 ||");
+        console.log("6. 赋值 =");
+        console.log("7. 三元运算符 ?:");
+        console.log("8. 字符串连接 +");
+        console.log("9. 自增 ++ 和 自减 --");
+        console.log("运算符结合性总结：");
+        console.log("大多数运算符是从左到右结合的，例如 +, -, *, /, &&, ||");
+        console.log("赋值运算符 = 和 三元运算符 ?: 是从右到左结合的");
+    </script>
+</body>
+</html>

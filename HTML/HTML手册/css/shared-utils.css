@@ -1,0 +1,142 @@
+/* Shared utilities and form/button styles extracted for workspace-wide reuse */
+:root{
+    --primary: #4361ee;
+    --primary-light: #4895ef;
+    --secondary: #3f37c9;
+    --success: #4caf50;
+    --warning: #ff9800;
+    --danger: #f44336;
+    --light: #f8f9fa;
+    --dark: #212529;
+    --border: #dee2e6;
+    --radius: 8px;
+    --transition: all 0.3s ease;
+    --shadow: 0 4px 6px rgba(0,0,0,0.08);
+    --shadow-hover: 0 8px 15px rgba(0,0,0,0.12);
+}
+
+/* --- Buttons --- */
+.btn,
+.cta-button,
+.submit {
+    display: inline-block;
+    padding: 0.6rem 1.1rem;
+    font-weight: 600;
+    font-size: 0.95rem;
+    color: #fff;
+    background: var(--primary);
+    border: 0;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: var(--transition);
+    box-shadow: var(--shadow);
+    text-align: center;
+}
+
+.btn-primary { background: var(--primary); }
+.btn-success { background: var(--success); }
+.btn-warning { background: var(--warning); }
+.btn-danger  { background: var(--danger); }
+
+.cta-small { padding: 0.6rem 1.5rem; }
+
+.btn:hover, .cta-button:hover, .submit:hover {
+    transform: translateY(-3px);
+    box-shadow: var(--shadow-hover);
+}
+
+/* --- Form controls compatibility --- */
+.form-control,
+.search-box,
+.search-box-input,
+.demo-input,
+.custom-input,
+input[type="text"],
+input[type="password"],
+input[type="email"],
+input[type="number"],
+input[type="search"],
+select,
+textarea,
+.form-textarea {
+    padding: 0.75rem 1rem;
+    font-size: 1rem;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial;
+    color: var(--dark);
+    background-color: #fff;
+    border: 2px solid var(--border);
+    border-radius: var(--radius);
+    transition: var(--transition);
+    box-sizing: border-box;
+}
+
+/* focus state */
+.form-control:focus,
+.search-box:focus,
+.search-box-input:focus,
+.demo-input:focus,
+.custom-input:focus,
+input[type="text"]:focus,
+input[type="password"]:focus,
+select:focus,
+textarea:focus,
+.form-textarea:focus {
+    border-color: var(--primary);
+    outline: none;
+    box-shadow: 0 0 0 3px rgba(67,97,238,0.12);
+}
+
+/* validation */
+.form-control:invalid { border-color: var(--danger); }
+.form-control:invalid:focus { box-shadow: 0 0 0 3px rgba(244,67,54,0.12); }
+
+/* --- Background helper classes (replace inline backgrounds) --- */
+.bg-primary { background: var(--primary) !important; }
+.bg-primary-light { background: var(--primary-light) !important; }
+.bg-secondary { background: var(--secondary) !important; }
+.bg-success { background: var(--success) !important; }
+.bg-warning { background: var(--warning) !important; }
+.bg-danger { background: var(--danger) !important; }
+
+/* --- Layout helpers --- */
+.flex-row { display: flex; flex-wrap: wrap; justify-content: center; gap: 10px; }
+.pill-card { color: white; padding: 15px; border-radius: 8px; display: inline-flex; align-items: center; justify-content: center; }
+
+.grid-demo { display: grid; grid-template-columns: repeat(3, 1fr); gap: 15px; }
+.grid-card { color: white; padding: 20px; border-radius: 8px; text-align: center; }
+.grid-span-2 { grid-column: span 2; }
+
+/* --- Demo utilities --- */
+.animated-demo { width: 80px; height: 80px; animation: pulse 2s infinite; }
+.demo-square { border-radius: 8px; }
+.demo-circle { border-radius: 50%; }
+.demo-plain { border-radius: 6px; }
+
+@keyframes pulse { 0%{ transform: scale(1);} 50%{ transform: scale(1.05);} 100%{ transform: scale(1);} }
+
+/* --- Liquid preview utilities --- */
+.liquid-preview {
+    position: relative;
+    padding: 2rem;
+    border-radius: 20px;
+    background: rgba(255,255,255,0.1);
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255,255,255,0.15);
+    overflow: hidden;
+    text-align: center;
+    transition: all 0.4s ease;
+}
+.liquid-ripple {
+    position: absolute;
+    top: 0; left: 0; width: 100%; height: 100%;
+    background: radial-gradient(circle at center, rgba(124,58,237,0.2) 0%, transparent 70%);
+    opacity: 0; transform: scale(0); transition: all 0.6s ease; pointer-events: none;
+}
+.liquid-title { color: #0F172A; margin-bottom: 1rem; }
+.liquid-desc { color: #475569; }
+
+/* small utilities */
+.mr-2 { margin-right: 0.5rem; }
+.mb-1 { margin-bottom: 0.5rem; }
+
+/* End of shared utils */

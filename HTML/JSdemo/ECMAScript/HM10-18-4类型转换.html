@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>类型转换示例</title>
+</head>
+<body>
+    <script>
+        let num = "42";
+        let str = "Hello";
+        let bool = true;
+
+        // 字符串转数字
+        let numConverted = Number(num);
+        document.write("字符串转数字：", numConverted, "<br>");
+
+        // 数字转字符串
+        let strConverted = String(numConverted);
+        document.write("数字转字符串：", strConverted, "<br>");
+
+        // 布尔值转数字
+        let boolConverted = Number(bool);
+        document.write("布尔值转数字：", boolConverted, "<br>");
+
+        // 数字转布尔值
+        let boolFromNum = Boolean(numConverted);
+        document.write("数字转布尔值：", boolFromNum, "<br>");
+    </script>
+</body>
+</html>

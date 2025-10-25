@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>数据类型示例</title>
+</head>
+<body>
+    <script>
+        let num = 42;               // 数字类型number
+        let name = "Alice";         // 字符串类型string
+        let tel = "123-456-7890"; // 字符串类型string   
+        let isStudent = true;      // 布尔类型boolean
+        let scores = [90, 85, 88]; // 数组类型Array
+        let person = {              // 对象类型Object
+            name: "Bob",
+            age: 30
+        };
+        let phone = null;         // null类型
+        let undef;                // undefined类型
+        document.write("空值：", phone, "<br>");
+        document.write("数字：", num, "<br>");
+        document.write("字符串：", name, "<br>");
+        document.write("布尔值：", isStudent, "<br>");
+        document.write("数组：", scores, "<br>");
+        document.write("对象：", person.name, ", ", person.age);
+        document.write("未定义：", undef, "<br>");
+        document.write("电话：", tel, "的类型是", typeof tel, "<br>");  // 使用typeof运算符检查数据类型
+    </script>
+</body>
+</html>
